@@ -18,3 +18,8 @@
 72	3498	7379693334523970	CMakeFiles/BufferManager.dir/main.cpp.obj	c0a3595bfd034e48
 104	3805	7379693337562246	CMakeFiles/BufferManager.dir/bufferManager.cpp.obj	f8b17719a9a375a8
 3805	4477	7379693344199804	BufferManager.exe	dd2452f2d6b7ffa7
+68	2227	7379703976856388	CMakeFiles/BufferManager.dir/bufferPool.cpp.obj	e5da4082d3038e
+33	2351	7379703978091392	CMakeFiles/BufferManager.dir/Interfaz.cpp.obj	67db78d8cc12d35f
+19	2396	7379703978545517	CMakeFiles/BufferManager.dir/main.cpp.obj	c0a3595bfd034e48
+59	2616	7379703980745550	CMakeFiles/BufferManager.dir/bufferManager.cpp.obj	f8b17719a9a375a8
+2617	3209	7379703986593993	BufferManager.exe	dd2452f2d6b7ffa7

@@ -16,7 +16,7 @@ private:
 	vector<string> listFrame;
 public:
 	bufferPool(int blockSize, int numFrames);
-	string* getFrameDirection(int frameId);
+	string* getFrameDirection(int frameId);// devuelve referencia del bloque en el buffer
 };
 
 
