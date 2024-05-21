@@ -1,0 +1,20 @@
+# ninja log v5
+79	2777	7379676646807095	CMakeFiles/BufferManager.dir/Interfaz.cpp.obj	67db78d8cc12d35f
+62	3077	7379676649779141	CMakeFiles/BufferManager.dir/main.cpp.obj	c0a3595bfd034e48
+77	2992	7379658008490042	CMakeFiles/BufferManager.dir/Bloque.cpp.obj	594e307d2f2cfd13
+3077	3623	7379676655165880	BufferManager.exe	3cd33d87f47de754
+196	1260	7379666047360275	CMakeFiles/BufferManager.dir/bufferManager.cpp.obj	f8b17719a9a375a8
+94	2819	7379689400318989	CMakeFiles/BufferManager.dir/bufferPool.cpp.obj	e5da4082d3038e
+71	3201	7379689404155390	CMakeFiles/BufferManager.dir/Interfaz.cpp.obj	67db78d8cc12d35f
+47	3297	7379689405152724	CMakeFiles/BufferManager.dir/main.cpp.obj	c0a3595bfd034e48
+84	3653	7379689408693235	CMakeFiles/BufferManager.dir/bufferManager.cpp.obj	f8b17719a9a375a8
+3654	4352	7379689415604839	BufferManager.exe	dd2452f2d6b7ffa7
+40	2897	7379690116391960	CMakeFiles/BufferManager.dir/Interfaz.cpp.obj	67db78d8cc12d35f
+24	3034	7379690117773427	CMakeFiles/BufferManager.dir/main.cpp.obj	c0a3595bfd034e48
+51	3320	7379690120636628	CMakeFiles/BufferManager.dir/bufferManager.cpp.obj	f8b17719a9a375a8
+3320	3788	7379690125244323	BufferManager.exe	dd2452f2d6b7ffa7
+115	3063	7379693330121548	CMakeFiles/BufferManager.dir/bufferPool.cpp.obj	e5da4082d3038e
+86	3330	7379693332797708	CMakeFiles/BufferManager.dir/Interfaz.cpp.obj	67db78d8cc12d35f
+72	3498	7379693334523970	CMakeFiles/BufferManager.dir/main.cpp.obj	c0a3595bfd034e48
+104	3805	7379693337562246	CMakeFiles/BufferManager.dir/bufferManager.cpp.obj	f8b17719a9a375a8
+3805	4477	7379693344199804	BufferManager.exe	dd2452f2d6b7ffa7
