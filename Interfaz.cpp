@@ -9,5 +9,6 @@ Interfaz::Interfaz(int numBlocks, int blockSize, int numFrames): buffManager(num
 }
 
 void Interfaz::leerBloque(int numBloque) {
-	buffManager.leerBloque(numBloque);
+	cout<<*buffManager.getPage(numBloque)<<endl;
+	buffManager.unpinPage(numBloque);
 }

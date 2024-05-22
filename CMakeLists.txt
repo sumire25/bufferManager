@@ -11,4 +11,5 @@ add_executable(BufferManager main.cpp
         bufferManager.cpp
         bufferManager.h
         bufferPool.cpp
-        bufferPool.h)
+        bufferPool.h
+)

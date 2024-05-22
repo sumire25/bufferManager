@@ -5,8 +5,8 @@
 
 int main()
 {
-    int numBlocks = 5;
-    Interfaz interfaz(numBlocks, 10, 3);
+    int numBlocks = 40;
+    Interfaz interfaz(numBlocks, 10, 5);
     for(int i=0; i<numBlocks; i++)
     {
         interfaz.leerBloque(i);
