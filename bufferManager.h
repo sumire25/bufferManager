@@ -10,18 +10,14 @@
 #include <iostream>
 #include <unordered_map>
 #include <queue>
-
-struct Node {
-	int value;
-	Node* next;
-	Node* prev;
-};
+#include <list>
 
 class bufferManager {
 private:
 	//key: pageId, value: <frameId, dirtyBit, pinCount>
 	unordered_map<int,tuple<int, bool, int>> pageTable;
-	Node* LRUHead;
+	//using std::list
+	list<int> LRUqueue;
 	queue<int> freeFrames;
 	vector<Bloque*> directorio;
 	bufferPool bufferPool;
@@ -37,6 +33,8 @@ public:
 	void pinPage(int pageId);//verifica si esta en el buuffer, incrementa el pincount
 	void unpinPage(int pageId);//decrementa el pincount
 	void setDirtyFlag(int pageId);//marca el dirty flag
+	int getMissCount();
+	int getHitcount();
 };
 
 

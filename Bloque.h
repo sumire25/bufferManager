@@ -14,7 +14,7 @@ private:
 public:
 	Bloque(int size);
 	string* leerBloque();
-	void escribirBloque(string& contenido);
+	void escribirBloque(string contenido);
 };
 
 

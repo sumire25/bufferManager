@@ -12,6 +12,6 @@ string* Bloque::leerBloque() {
 	return &contenido;
 }
 
-void Bloque::escribirBloque(string& contenido) {
+void Bloque::escribirBloque(string contenido) {
 	this->contenido = contenido;
 }

@@ -14,6 +14,9 @@ private:
 public:
 	Interfaz(int numBlocks, int blockSize, int numFrames);
 	void leerBloque(int numBloque);// Deberia de retornar el contenido de un bloque, consultando al buffermanager
+	void escribirBloque(int numBloque, string contenido);// Deberia de escribir el contenido en un bloque, consultando al buffermanager
+	int getMissCount();
+	int getHitcount();
 };
 
 

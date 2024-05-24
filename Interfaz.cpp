@@ -12,3 +12,18 @@ void Interfaz::leerBloque(int numBloque) {
 	cout<<*buffManager.getPage(numBloque)<<endl;
 	buffManager.unpinPage(numBloque);
 }
+
+void Interfaz::escribirBloque(int numBloque, string contenido) {
+	string* bloque = buffManager.getPage(numBloque);
+	*bloque = contenido;
+	buffManager.setDirtyFlag(numBloque);
+	buffManager.unpinPage(numBloque);
+}
+
+int Interfaz::getMissCount() {
+	return buffManager.getMissCount();
+}
+
+int Interfaz::getHitcount() {
+	return buffManager.getHitcount();
+}
