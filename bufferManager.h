@@ -27,6 +27,19 @@ private:
 	int bufferSize; // tamaño del buffer
 	int missCount; // contador de misses
 	int hitCount; // contador de hits
+
+	/**
+ * Libera el frame que contiene a la pagina, escribe en disco si hay cambios
+ * @param pageId: id de la pagina
+ * @author Todos
+ */
+	void flushPage(int pageId);
+	/**
+ * Verifica si la pagina esta en el buffer, incrementa el pincount
+ * @param pageId: id de la pagina
+ * @author Todos
+ */
+	void pinPage(int pageId);
 public:
 	bufferManager(int blockSize, int numFrames);
 	/**
@@ -42,18 +55,6 @@ public:
 	 * @author Todos
 	 */
 	string* getPage(int pageId);
-	/**
-	 * Libera el frame que contiene a la pagina, escribe en disco si hay cambios
-	 * @param pageId: id de la pagina
-	 * @author Todos
-	 */
-	void flushPage(int pageId);
-	/**
-	 * Verifica si la pagina esta en el buffer, incrementa el pincount
-	 * @param pageId: id de la pagina
-	 * @author Todos
-	 */
-	void pinPage(int pageId);
 	/**
 	 * Decrementa el pincount
 	 * @param pageId: id de la pagina
