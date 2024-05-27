@@ -8,8 +8,8 @@ Bloque::Bloque(int size) {
 	contenido.resize(size);
 }
 
-string* Bloque::leerBloque() {
-	return &contenido;
+string Bloque::leerBloque() {
+	return contenido;
 }
 
 void Bloque::escribirBloque(string contenido) {

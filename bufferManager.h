@@ -6,35 +6,88 @@
 #define BUFFERMANAGER_H
 
 #include "bufferPool.h";
-#include "Bloque.h";
+#include "DiskManager.h";
 #include <iostream>
 #include <unordered_map>
 #include <queue>
 #include <list>
 
+/**
+ * Gestiona el buffer, el cual es un conjunto de frames en memoria principal
+ */
 class bufferManager {
 private:
+	DiskManager* diskManRef; //Referencia al disk manager
 	//key: pageId, value: <frameId, dirtyBit, pinCount>
 	unordered_map<int,tuple<int, bool, int>> pageTable;
-	//using std::list
-	list<int> LRUqueue;
-	queue<int> freeFrames;
-	vector<Bloque*> directorio;
-	bufferPool bufferPool;
-	int numFrames;
-	int bufferSize;
-	int missCount;
-	int hitCount;
+	list<int> LRUqueue; // cola de frames (unpinned) segun su uso reciente
+	queue<int> freeFrames; // cola de frames libres
+	bufferPool buffPool; // instancia del buffer pool
+	int numFrames; // numero de frames
+	int bufferSize; // tamaño del buffer
+	int missCount; // contador de misses
+	int hitCount; // contador de hits
 public:
-	bufferManager(int numBlocks, int blockSize, int numFrames);
-	//IMPORTANTE
-	string* getPage(int pageId);// devuelve referencia del bloque en el buffer
-	void flushPage(int pageId);// libera el frame que contiene al bloque, escribe en disco si hay cambios
-	void pinPage(int pageId);//verifica si esta en el buuffer, incrementa el pincount
-	void unpinPage(int pageId);//decrementa el pincount
-	void setDirtyFlag(int pageId);//marca el dirty flag
+	bufferManager(int blockSize, int numFrames);
+	/**
+	 * Establece la conexion con el disk manager
+	 * @param diskManRef: referencia al disk manager
+	 * @author Todos
+	 */
+	void setDiskManRef(DiskManager* diskManRef);//setea la referencia al disk manager
+	/**
+	 * Obtiene el contenido de una pagina en el buffer
+	 * @param pageId: id de la pagina
+	 * @return referencia a la pagina en el buffer
+	 * @author Todos
+	 */
+	string* getPage(int pageId);
+	/**
+	 * Libera el frame que contiene a la pagina, escribe en disco si hay cambios
+	 * @param pageId: id de la pagina
+	 * @author Todos
+	 */
+	void flushPage(int pageId);
+	/**
+	 * Verifica si la pagina esta en el buffer, incrementa el pincount
+	 * @param pageId: id de la pagina
+	 * @author Todos
+	 */
+	void pinPage(int pageId);
+	/**
+	 * Decrementa el pincount
+	 * @param pageId: id de la pagina
+	 * @author Todos
+	 */
+	void unpinPage(int pageId);
+	/**
+	 * Marca el dirty flag de la pagina
+	 * @param pageId: id de la pagina
+	 * @author Todos
+	 */
+	void setDirtyFlag(int pageId);
+	/**
+	 * Obtiene el contador de misses
+	 * @return contador de misses
+	 * @author Todos
+	 */
 	int getMissCount();
+	/**
+	 * Obtiene el contador de hits
+	 * @return contador de hits
+	 * @author Todos
+	 */
 	int getHitcount();
+	/**
+	 * Imprime la pageTable
+	 * @author Todos
+	 */
+	void printPageTable();
+	/**
+	* Imprime la LRUqueue
+	* @author Todos
+	*/
+	void printLRUqueue();
 };
 
 

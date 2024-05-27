@@ -9,16 +9,21 @@
 #include <vector>
 using namespace std;
 
+// Clase que almacena los frames en la memoria principal
 class bufferPool {
 private:
-	int numFrames;
-	int bufferSize;
-	vector<string> listFrame;
+	int numFrames; // numero de frames
+	int bufferSize; // tamaño del buffer
+	vector<string> listFrame; // lista de frames
 public:
 	bufferPool(int blockSize, int numFrames);
-	string* getFrameDirection(int frameId);// devuelve referencia del bloque en el buffer
+	/**
+	 * Obtiene la direccion de un frame en el buffer
+	 * @param frameId: id del frame
+	 * @return direccion del frame en el buffer
+	 * @author Todos
+	 */
+	string* getFrameDirection(int frameId);
 };
-
-
 
 #endif //BUFFERPOOL_H

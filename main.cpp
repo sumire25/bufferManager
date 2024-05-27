@@ -9,6 +9,7 @@ int main()
     int bloque;
     std::string contenido;
 
+    //Configuracion inicial
     std::cout << "----------- BUFFER MANAGER -----------" <<std::endl;
     std::cout << "1. Indicar numero de bloques " <<std::endl;
     int numBlocks;
@@ -29,19 +30,17 @@ int main()
         std::cout << "1. Leer bloque " <<std::endl;
         std::cout << "2. Escribir bloque " <<std::endl;
         std::cin >> opc;
-        std::cout << "\n Inidique el id del bloque: " <<std::endl;
+        std::cout << "\n Indique el id del bloque: " <<std::endl;
 
         switch (opc)
         {
         case 1: {
-            
             std::cin >> bloque;
             interfaz.leerBloque(bloque);
         }
             break;
         
-        case 2:{ //Hacer que lea un archivo
-             
+        case 2:{
             std::cin >> bloque;
             std::cin >> contenido;
             interfaz.escribirBloque(bloque,contenido);
@@ -55,8 +54,7 @@ int main()
 
     } while (opc);
 
-    cout << "Total Misscount: " << interfaz.getMissCount();
-    cout << ", Total Hitcount: " << interfaz.getHitcount() << endl;
+    interfaz.mostrarContadores();
     
     return 0;
 }

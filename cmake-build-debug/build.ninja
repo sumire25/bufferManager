@@ -79,6 +79,12 @@ build CMakeFiles/BufferManager.dir/bufferPool.cpp.obj: CXX_COMPILER__BufferManag
   OBJECT_DIR = CMakeFiles\BufferManager.dir
   OBJECT_FILE_DIR = CMakeFiles\BufferManager.dir
 
+build CMakeFiles/BufferManager.dir/DiskManager.cpp.obj: CXX_COMPILER__BufferManager_unscanned_Debug D$:/BD2/BufferManager/DiskManager.cpp || cmake_object_order_depends_target_BufferManager
+  DEP_FILE = CMakeFiles\BufferManager.dir\DiskManager.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\BufferManager.dir
+  OBJECT_FILE_DIR = CMakeFiles\BufferManager.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target BufferManager
@@ -87,7 +93,7 @@ build CMakeFiles/BufferManager.dir/bufferPool.cpp.obj: CXX_COMPILER__BufferManag
 #############################################
 # Link the executable BufferManager.exe
 
-build BufferManager.exe: CXX_EXECUTABLE_LINKER__BufferManager_Debug CMakeFiles/BufferManager.dir/main.cpp.obj CMakeFiles/BufferManager.dir/Interfaz.cpp.obj CMakeFiles/BufferManager.dir/Bloque.cpp.obj CMakeFiles/BufferManager.dir/bufferManager.cpp.obj CMakeFiles/BufferManager.dir/bufferPool.cpp.obj
+build BufferManager.exe: CXX_EXECUTABLE_LINKER__BufferManager_Debug CMakeFiles/BufferManager.dir/main.cpp.obj CMakeFiles/BufferManager.dir/Interfaz.cpp.obj CMakeFiles/BufferManager.dir/Bloque.cpp.obj CMakeFiles/BufferManager.dir/bufferManager.cpp.obj CMakeFiles/BufferManager.dir/bufferPool.cpp.obj CMakeFiles/BufferManager.dir/DiskManager.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\BufferManager.dir
