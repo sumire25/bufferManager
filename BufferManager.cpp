@@ -2,9 +2,9 @@
 // Created by msumi on 20/05/2024.
 //
 
-#include "bufferManager.h"
+#include "BufferManager.h"
 
-bufferManager::bufferManager(int blockSize, int numFrames): buffPool(blockSize, numFrames) {
+BufferManager::BufferManager(int blockSize, int numFrames): buffPool(blockSize, numFrames) {
 	this->numFrames = numFrames;
 	this->bufferSize = blockSize*numFrames;
 	// incializar hit y miss count
@@ -15,19 +15,19 @@ bufferManager::bufferManager(int blockSize, int numFrames): buffPool(blockSize, 
 	for(i=0; i<numFrames; i++) freeFrames.push(i);
 }
 
-void bufferManager::setDiskManRef(DiskManager *diskManRef) {
+void BufferManager::setDiskManRef(DiskManager *diskManRef) {
 	this->diskManRef = diskManRef;
 }
 
-string * bufferManager::getPage(int pageId) {
+string * BufferManager::getPage(int pageId) {
 	// pinear pagina
-	pinPage(pageId);
-	// retornar direccion del frame que sostiene a la pagina
-	int frameId = get<0>(pageTable[pageId]);
-	return buffPool.getFrameDirection(frameId);
+	if(pinPage(pageId)) {// retornar direccion del frame que sostiene a la pagina
+		return buffPool.getFrameDirection(get<0>(pageTable[pageId]));
+	}
+	return nullptr;
 }
 
-void bufferManager::flushPage(int pageId) { // recibira una pagina que esta en un frame
+void BufferManager::flushPage(int pageId) { // recibira una pagina que esta en un frame
 	if(get<2>(pageTable[pageId]) != 0) {
 		cerr << "No se puede liberar la pagina " << pageId << " porque esta siendo usada" << endl;
 		return;
@@ -43,14 +43,20 @@ void bufferManager::flushPage(int pageId) { // recibira una pagina que esta en u
 	cerr<<"Flushing page: "<<pageId<<endl; // mensaje de depuracion
 }
 
-void bufferManager::pinPage(int pageId) {
-	if(pageTable.find(pageId) == pageTable.end()) // Si la pagina no esta en el bufferPool
+bool BufferManager::pinPage(int pageId) {
+	if(pageTable.find(pageId) == pageTable.end()) // Si la pagina no esta en el BufferPool
 	{
-		cout<<"misscount ++"<<endl;
-		missCount++;
 		if(freeFrames.size() == 0) { //Si no hay frames disponibles
-			int page = LRUqueue.front();
-			flushPage(page);// liberamos el frame de la cabecera de la LRUqueue
+			if(!LRUqueue.empty()) {
+				int page = LRUqueue.front();
+				flushPage(page);// liberamos el frame de la cabecera de la LRUqueue
+				cerr<<"misscount ++"<<endl;
+				missCount++;
+			}
+			else {
+				cerr << "No hay frames disponibles" << endl;
+				return 0;
+			}
 		}
 		//reservar frame
 		int freeFrame = freeFrames.front();
@@ -72,26 +78,27 @@ void bufferManager::pinPage(int pageId) {
 		hitCount++;
 	}
 	get<2>(pageTable[pageId])++; //incrementar pincount
+	return 1;
 }
 
-void bufferManager::unpinPage(int pageId) {
+void BufferManager::unpinPage(int pageId) {
 	if((--get<2>(pageTable[pageId])) == 0)// decrementar pincount y verificar si esta unpinned
 		LRUqueue.push_back(pageId); //intrducir la pagina en LRU queue
 }
 
-void bufferManager::setDirtyFlag(int pageId) {
+void BufferManager::setDirtyFlag(int pageId) {
 	get<1>(pageTable[pageId]) = true;
 }
 
-int bufferManager::getMissCount() {
+int BufferManager::getMissCount() {
 	return missCount;
 }
 
-int bufferManager::getHitcount() {
+int BufferManager::getHitcount() {
 	return hitCount;
 }
 
-void bufferManager::printPageTable() {
+void BufferManager::printPageTable() {
 	cout << "\t----------------------------------------------" << endl;
 	cout << "\t| Page ID | Frame ID | dirty bit | pin count |" << endl;
 	for (const auto& entry : pageTable) {
@@ -108,7 +115,7 @@ void bufferManager::printPageTable() {
 	cout << "\t----------------------------------------------\n" << endl;
 }
 
-void bufferManager::printLRUqueue() {
+void BufferManager::printLRUqueue() {
 	for (const int& item : LRUqueue) {
 		cout << "| " << item << " | <- ";
 	}

@@ -5,8 +5,8 @@
 #ifndef BUFFERMANAGER_H
 #define BUFFERMANAGER_H
 
-#include "bufferPool.h";
-#include "DiskManager.h";
+#include "BufferPool.h"
+#include "DiskManager.h"
 #include <iostream>
 #include <unordered_map>
 #include <queue>
@@ -15,14 +15,14 @@
 /**
  * Gestiona el buffer, el cual es un conjunto de frames en memoria principal
  */
-class bufferManager {
+class BufferManager {
 private:
 	DiskManager* diskManRef; //Referencia al disk manager
 	//key: pageId, value: <frameId, dirtyBit, pinCount>
 	unordered_map<int,tuple<int, bool, int>> pageTable;
 	list<int> LRUqueue; // cola de frames (unpinned) segun su uso reciente
 	queue<int> freeFrames; // cola de frames libres
-	bufferPool buffPool; // instancia del buffer pool
+	BufferPool buffPool; // instancia del buffer pool
 	int numFrames; // numero de frames
 	int bufferSize; // tamaño del buffer
 	int missCount; // contador de misses
@@ -37,11 +37,12 @@ private:
 	/**
  * Verifica si la pagina esta en el buffer, incrementa el pincount
  * @param pageId: id de la pagina
+ * @return true si se pudo pinear la pagina, false en caso contrario
  * @author Todos
  */
-	void pinPage(int pageId);
+	bool pinPage(int pageId);
 public:
-	bufferManager(int blockSize, int numFrames);
+	BufferManager(int blockSize, int numFrames);
 	/**
 	 * Establece la conexion con el disk manager
 	 * @param diskManRef: referencia al disk manager

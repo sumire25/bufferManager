@@ -67,14 +67,14 @@ build CMakeFiles/BufferManager.dir/Bloque.cpp.obj: CXX_COMPILER__BufferManager_u
   OBJECT_DIR = CMakeFiles\BufferManager.dir
   OBJECT_FILE_DIR = CMakeFiles\BufferManager.dir
 
-build CMakeFiles/BufferManager.dir/bufferManager.cpp.obj: CXX_COMPILER__BufferManager_unscanned_Debug D$:/BD2/BufferManager/bufferManager.cpp || cmake_object_order_depends_target_BufferManager
-  DEP_FILE = CMakeFiles\BufferManager.dir\bufferManager.cpp.obj.d
+build CMakeFiles/BufferManager.dir/BufferManager.cpp.obj: CXX_COMPILER__BufferManager_unscanned_Debug D$:/BD2/BufferManager/BufferManager.cpp || cmake_object_order_depends_target_BufferManager
+  DEP_FILE = CMakeFiles\BufferManager.dir\BufferManager.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\BufferManager.dir
   OBJECT_FILE_DIR = CMakeFiles\BufferManager.dir
 
-build CMakeFiles/BufferManager.dir/bufferPool.cpp.obj: CXX_COMPILER__BufferManager_unscanned_Debug D$:/BD2/BufferManager/bufferPool.cpp || cmake_object_order_depends_target_BufferManager
-  DEP_FILE = CMakeFiles\BufferManager.dir\bufferPool.cpp.obj.d
+build CMakeFiles/BufferManager.dir/BufferPool.cpp.obj: CXX_COMPILER__BufferManager_unscanned_Debug D$:/BD2/BufferManager/BufferPool.cpp || cmake_object_order_depends_target_BufferManager
+  DEP_FILE = CMakeFiles\BufferManager.dir\BufferPool.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\BufferManager.dir
   OBJECT_FILE_DIR = CMakeFiles\BufferManager.dir
@@ -93,7 +93,7 @@ build CMakeFiles/BufferManager.dir/DiskManager.cpp.obj: CXX_COMPILER__BufferMana
 #############################################
 # Link the executable BufferManager.exe
 
-build BufferManager.exe: CXX_EXECUTABLE_LINKER__BufferManager_Debug CMakeFiles/BufferManager.dir/main.cpp.obj CMakeFiles/BufferManager.dir/Interfaz.cpp.obj CMakeFiles/BufferManager.dir/Bloque.cpp.obj CMakeFiles/BufferManager.dir/bufferManager.cpp.obj CMakeFiles/BufferManager.dir/bufferPool.cpp.obj CMakeFiles/BufferManager.dir/DiskManager.cpp.obj
+build BufferManager.exe: CXX_EXECUTABLE_LINKER__BufferManager_Debug CMakeFiles/BufferManager.dir/main.cpp.obj CMakeFiles/BufferManager.dir/Interfaz.cpp.obj CMakeFiles/BufferManager.dir/Bloque.cpp.obj CMakeFiles/BufferManager.dir/BufferManager.cpp.obj CMakeFiles/BufferManager.dir/BufferPool.cpp.obj CMakeFiles/BufferManager.dir/DiskManager.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\BufferManager.dir

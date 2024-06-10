@@ -8,10 +8,11 @@ add_executable(BufferManager main.cpp
         Interfaz.h
         Bloque.cpp
         Bloque.h
-        bufferManager.cpp
-        bufferManager.h
-        bufferPool.cpp
-        bufferPool.h
+        BufferManager.cpp
+        BufferManager.h
+        BufferPool.cpp
+        BufferPool.h
         DiskManager.cpp
         DiskManager.h
+        Replacer.h
 )

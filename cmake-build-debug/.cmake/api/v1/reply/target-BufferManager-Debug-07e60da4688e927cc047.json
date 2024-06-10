@@ -110,7 +110,8 @@
 				4,
 				6,
 				8,
-				10
+				10,
+				11
 			]
 		}
 	],
@@ -147,23 +148,23 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "bufferManager.cpp",
+			"path" : "BufferManager.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "bufferManager.h",
+			"path" : "BufferManager.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "bufferPool.cpp",
+			"path" : "BufferPool.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "bufferPool.h",
+			"path" : "BufferPool.h",
 			"sourceGroupIndex" : 1
 		},
 		{
@@ -175,6 +176,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "DiskManager.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Replacer.h",
 			"sourceGroupIndex" : 1
 		}
 	],

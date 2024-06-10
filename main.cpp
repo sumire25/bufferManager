@@ -29,6 +29,7 @@ int main()
         std::cout << "----------- Operaciones -----------" <<std::endl;
         std::cout << "1. Leer bloque " <<std::endl;
         std::cout << "2. Escribir bloque " <<std::endl;
+        std::cout << "3. Liberar bloque " <<std::endl;
         std::cin >> opc;
         std::cout << "\n Indique el id del bloque: " <<std::endl;
 
@@ -46,7 +47,13 @@ int main()
             interfaz.escribirBloque(bloque,contenido);
         }
             break;
-        
+
+        case 3:{
+            std::cin >> bloque;
+            interfaz.liberarBloque(bloque);
+        }
+            break;
+
         default:
             break;
         }

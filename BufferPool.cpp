@@ -2,9 +2,9 @@
 // Created by msumi on 20/05/2024.
 //
 
-#include "bufferPool.h"
+#include "BufferPool.h"
 
-bufferPool::bufferPool(int blockSize, int numFrames) {
+BufferPool::BufferPool(int blockSize, int numFrames) {
 	this->numFrames = numFrames;
 	this->bufferSize = numFrames * blockSize;
 	listFrame.resize(numFrames);
@@ -14,6 +14,6 @@ bufferPool::bufferPool(int blockSize, int numFrames) {
 	}
 }
 
-string * bufferPool::getFrameDirection(int frameId) {
+string * BufferPool::getFrameDirection(int frameId) {
 	return &listFrame[frameId];
 }

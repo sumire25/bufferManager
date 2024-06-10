@@ -5,7 +5,7 @@
 #ifndef INTERFAZ_H
 #define INTERFAZ_H
 
-#include "bufferManager.h"
+#include "BufferManager.h"
 #include "DiskManager.h"
 
 /**
@@ -14,10 +14,10 @@
 class Interfaz {
 private:
 	DiskManager diskMan;//instancia del diskManager
-	bufferManager buffManager;//instancia del bufferManager
+	BufferManager buffManager;//instancia del BufferManager
 public:
 	/**
-	 * Constructor: crea un bufferManager con los parámetros dados
+	 * Constructor: crea un BufferManager con los parámetros dados
 	 * @param numBlocks: cantidad de bloques, blocksize: tamaño de los bloques, numFrames: cantidad de frames
 	 * @author Todos
 	 */
@@ -34,6 +34,13 @@ public:
 	* @author Todos
 	*/
 	void escribirBloque(int numBloque, string contenido);
+
+	/**
+	 * Libera un bloque
+	 * @param numBloque
+	 * @author Todos
+	 */
+	void liberarBloque(int numBloque);
 	/**
 	 * Imprime los cantidad de misses y hits
 	 * @author Todos

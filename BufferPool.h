@@ -10,13 +10,13 @@
 using namespace std;
 
 // Clase que almacena los frames en la memoria principal
-class bufferPool {
+class BufferPool {
 private:
 	int numFrames; // numero de frames
 	int bufferSize; // tamaño del buffer
 	vector<string> listFrame; // lista de frames
 public:
-	bufferPool(int blockSize, int numFrames);
+	BufferPool(int blockSize, int numFrames);
 	/**
 	 * Obtiene la direccion de un frame en el buffer
 	 * @param frameId: id del frame
