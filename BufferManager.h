@@ -7,6 +7,7 @@
 
 #include "BufferPool.h"
 #include "DiskManager.h"
+#include "Replacer.h"
 #include <iostream>
 #include <unordered_map>
 #include <queue>
@@ -19,7 +20,8 @@ class BufferManager {
 private:
 	DiskManager* diskManRef; //Referencia al disk manager
 	//key: pageId, value: <frameId, dirtyBit, pinCount>
-	unordered_map<int,tuple<int, bool, int>> pageTable;
+	unordered_map<int,int> pageTable;
+	tuple<bool, int> frameInfo[NUM_FRAMES];
 	list<int> LRUqueue; // cola de frames (unpinned) segun su uso reciente
 	queue<int> freeFrames; // cola de frames libres
 	BufferPool buffPool; // instancia del buffer pool
@@ -42,7 +44,8 @@ private:
  */
 	bool pinPage(int pageId);
 public:
-	BufferManager(int blockSize, int numFrames);
+	BufferManager();
+	~BufferManager();
 	/**
 	 * Establece la conexion con el disk manager
 	 * @param diskManRef: referencia al disk manager

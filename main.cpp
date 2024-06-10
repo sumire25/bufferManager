@@ -22,7 +22,7 @@ int main()
     std::cin >> numFrames;
 
     //Interfaz interfaz(5, 10, 3);
-    Interfaz interfaz(numBlocks, tamBlock, numFrames);
+    Interfaz interfaz;
 
 
     do {

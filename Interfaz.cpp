@@ -6,7 +6,7 @@
 
 #include <utility>
 
-Interfaz::Interfaz(int numBlocks, int blockSize, int numFrames): buffManager(blockSize, numFrames), diskMan(numBlocks, blockSize) {
+Interfaz::Interfaz(): buffManager(), diskMan(5, PAGE_SIZE) {
 	buffManager.setDiskManRef(&diskMan);
 }
 

@@ -5,6 +5,9 @@
 #ifndef BUFFERPOOL_H
 #define BUFFERPOOL_H
 
+#define PAGE_SIZE 10
+#define NUM_FRAMES 3
+
 #include <string>
 #include <vector>
 using namespace std;
@@ -12,11 +15,10 @@ using namespace std;
 // Clase que almacena los frames en la memoria principal
 class BufferPool {
 private:
-	int numFrames; // numero de frames
-	int bufferSize; // tamaño del buffer
-	vector<string> listFrame; // lista de frames
+	string* framelist; // lista de frames
 public:
-	BufferPool(int blockSize, int numFrames);
+	BufferPool();
+	~BufferPool();
 	/**
 	 * Obtiene la direccion de un frame en el buffer
 	 * @param frameId: id del frame

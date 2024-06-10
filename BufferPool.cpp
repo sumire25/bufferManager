@@ -4,16 +4,14 @@
 
 #include "BufferPool.h"
 
-BufferPool::BufferPool(int blockSize, int numFrames) {
-	this->numFrames = numFrames;
-	this->bufferSize = numFrames * blockSize;
-	listFrame.resize(numFrames);
-	for(int i=0; i<numFrames; i++)
-	{
-		listFrame[i] = "";
-	}
+BufferPool::BufferPool() {
+	framelist = new string[NUM_FRAMES];
+}
+
+BufferPool::~BufferPool() {
+	delete[] framelist;
 }
 
 string * BufferPool::getFrameDirection(int frameId) {
-	return &listFrame[frameId];
+	return &framelist[frameId];
 }

@@ -21,7 +21,7 @@ public:
 	 * @param numBlocks: cantidad de bloques, blocksize: tamaño de los bloques, numFrames: cantidad de frames
 	 * @author Todos
 	 */
-	Interfaz(int numBlocks, int blockSize, int numFrames);
+	Interfaz();
 	/**
 	 * Imprime el contenido del bloque dado su identificador
 	 * @param numBlock: identificador del bloque
