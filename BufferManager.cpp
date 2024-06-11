@@ -4,15 +4,17 @@
 
 #include "BufferManager.h"
 
-BufferManager::BufferManager() {
+BufferManager::BufferManager(int replacerType) {
 	this->numFrames = NUM_FRAMES;
 	this->bufferSize = PAGE_SIZE * NUM_FRAMES;
 	// incializar hit y miss count
 	hitCount = 0;
 	missCount = 0;
-	//inicializar lista freeFrames
-	int i;
-	for(i=0; i<numFrames; i++) freeFrames.push(i);
+	//inicializar frameInfo
+	for(int i=0; i<numFrames; i++) frameInfo[i] = make_tuple(false, 0);
+	//inicializar replacer
+	if(replacerType == 2) replacer = new ClockReplacer(frameInfo, numFrames);
+	else replacer = new LruReplacer(frameInfo, numFrames);
 }
 
 BufferManager::~BufferManager() {
@@ -41,59 +43,62 @@ string * BufferManager::getPage(int pageId) {
 
 void BufferManager::flushPage(int pageId) {
 	int frameId = pageTable[pageId];
-	if(get<1>(frameInfo[frameId]) != 0) {
+	if(get<1>(frameInfo[frameId]) != 0) {// si la pagina esta pinned
 		cerr << "No se puede liberar la pagina " << pageId << " porque esta siendo usada" << endl;
 		return;
 	}
-	if(get<0>(frameInfo[frameId])) {
+	if(get<0>(frameInfo[frameId])) {// la escribira en disco si dirtyflag es true
 		string* page = buffPool.getFrameDirection(frameId);
 		diskManRef->writeBlock(pageId, *page);
 	}
-	freeFrames.push(frameId);
-	pageTable.erase(pageId);
-	LRUqueue.pop_front();
+	pageTable.erase(pageId);// eliminar seguimiento de la pagina del pagetable
 	cerr<<"Flushing page: "<<pageId<<endl;
 }
 
 bool BufferManager::pinPage(int pageId) {
-	if(pageTable.find(pageId) == pageTable.end()) {
-		if(freeFrames.size() == 0) {
-			if(!LRUqueue.empty()) {
-				int page = LRUqueue.front();
-				flushPage(page);
-			}
-			else {
-				cerr << "No hay frames disponibles" << endl;
-				return 0;
-			}
+	int frameId;
+	if(pageTable.find(pageId) == pageTable.end()) {// Si la pagina no esta en el BufferPool
+		frameId = replacer->getVictim();//obtener el victimFrame
+		if(frameId == -1) {// Si no hay frames disponibles
+			cerr << "No hay frames disponibles" << endl;
+			return false;
 		}
-		int freeFrame = freeFrames.front();
-		freeFrames.pop();
-		*(buffPool.getFrameDirection(freeFrame)) = diskManRef->readBlock(pageId);
-		pageTable[pageId] = freeFrame;
-		frameInfo[freeFrame] = make_tuple(false, 0);
+		int victimPage = getPageidfromFrame(frameId);
+		if(victimPage != -1) {// Si el victimFrame tiene una pagina
+			flushPage(victimPage);
+		}
+		//cargar la pagina en el frame y actualizar el pageTable
+		pageTable[pageId] = frameId;
+		frameInfo[frameId] = make_tuple(false, 0);
+		*(buffPool.getFrameDirection(frameId)) = diskManRef->readBlock(pageId);
 		cerr<<"misscount ++"<<endl;
 		missCount++;
-	} else {
-		int frameId = pageTable[pageId];
-		if(get<1>(frameInfo[frameId]) == 0) {
-			for (auto it = LRUqueue.begin(); it != LRUqueue.end(); ++it) {
-				if (*it == pageId) {
-					LRUqueue.erase(it);
-					break;
-				}
-			}
-		}
+	}
+	else {// Si la pagina esta en el BufferPool
+		frameId = pageTable[pageId];
 		cout<<"hitcount ++"<<endl;
 		hitCount++;
 	}
+	//pinnear la pagina
 	get<1>(frameInfo[pageTable[pageId]])++;
-	return 1;
+	replacer->handlePinning(frameId);
+	return true;
+}
+
+int BufferManager::getPageidfromFrame(int frameId) {
+	int victimPage = -1;
+	for (const auto& entry : pageTable) {
+		if(entry.second == frameId) {
+			victimPage = entry.first;
+			break;
+		}
+	}
+	return victimPage;
 }
 
 void BufferManager::unpinPage(int pageId) {
-	if((--get<1>(frameInfo[pageTable[pageId]])) == 0)
-		LRUqueue.push_back(pageId);
+	if((--get<1>(frameInfo[pageTable[pageId]])) == 0)//si la pagina esta unpinned
+		replacer->handleUnpinning(pageTable[pageId]);//actualizar el estado del frame en el reemplazador
 }
 
 void BufferManager::setDirtyFlag(int pageId) {
@@ -124,9 +129,6 @@ void BufferManager::printPageTable() {
 	cout << "\t----------------------------------------------\n" << endl;
 }
 
-void BufferManager::printLRUqueue() {
-	for (const int& item : LRUqueue) {
-		cout << "| " << item << " | <- ";
-	}
-	cout << "end\n" << endl;
+void BufferManager::printReplacer() {
+	replacer->print();
 }

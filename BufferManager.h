@@ -19,11 +19,11 @@
 class BufferManager {
 private:
 	DiskManager* diskManRef; //Referencia al disk manager
-	//key: pageId, value: <frameId, dirtyBit, pinCount>
+	//key: pageId, value: frameId
 	unordered_map<int,int> pageTable;
+	//key: frameId, value: dirtyBit y pinCount
 	tuple<bool, int> frameInfo[NUM_FRAMES];
-	list<int> LRUqueue; // cola de frames (unpinned) segun su uso reciente
-	queue<int> freeFrames; // cola de frames libres
+	Replacer* replacer;//reemplazador
 	BufferPool buffPool; // instancia del buffer pool
 	int numFrames; // numero de frames
 	int bufferSize; // tamaño del buffer
@@ -43,8 +43,20 @@ private:
  * @author Todos
  */
 	bool pinPage(int pageId);
+	/**
+ * Obtiene el id de la pagina que esta en el frame
+ * @param frameId: id del frame
+ * @return id de la pagina que esta en el frame, -1 si no hay ninguna
+ * @author Marko
+ */
+	int getPageidfromFrame(int frameId);
 public:
-	BufferManager();
+	/**
+	* Constructor: crea un BufferManager con la estrategia de reemplazo deseada
+	* @param replacerType: LRU(1), Clock(2)
+	* @author Marko
+	*/
+	BufferManager(int replacerType);
 	~BufferManager();
 	/**
 	 * Establece la conexion con el disk manager
@@ -89,10 +101,10 @@ public:
 	 */
 	void printPageTable();
 	/**
-	* Imprime la LRUqueue
-	* @author Todos
+	* Imprime el estado de las estructuras de reemplazo
+	* @author Marko
 	*/
-	void printLRUqueue();
+	void printReplacer();
 };
 
 

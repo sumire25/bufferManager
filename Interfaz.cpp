@@ -6,7 +6,7 @@
 
 #include <utility>
 
-Interfaz::Interfaz(): buffManager(), diskMan(5, PAGE_SIZE) {
+Interfaz::Interfaz(int replacerType): buffManager(replacerType), diskMan(5, PAGE_SIZE) {
 	buffManager.setDiskManRef(&diskMan);
 }
 
@@ -15,7 +15,7 @@ void Interfaz::leerBloque(int numBlock) {
 	if(bloque != nullptr) {
 		cout<<*bloque<<endl;
 		buffManager.printPageTable();
-		buffManager.printLRUqueue();
+		buffManager.printReplacer();
 	}
 }
 
@@ -25,14 +25,14 @@ void Interfaz::escribirBloque(int numBloque, string contenido) {
 		*bloque = std::move(contenido);
 		buffManager.setDirtyFlag(numBloque);
 		buffManager.printPageTable();
-		buffManager.printLRUqueue();
+		buffManager.printReplacer();
 	}
 }
 
 void Interfaz::liberarBloque(int numBloque) {
 	buffManager.unpinPage(numBloque);
 	buffManager.printPageTable();
-	buffManager.printLRUqueue();
+	buffManager.printReplacer();
 }
 
 void Interfaz::mostrarContadores() {

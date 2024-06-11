@@ -18,10 +18,10 @@ private:
 public:
 	/**
 	 * Constructor: crea un BufferManager con los parámetros dados
-	 * @param numBlocks: cantidad de bloques, blocksize: tamaño de los bloques, numFrames: cantidad de frames
+	 * @param replacerType: LRU(1), Clock(2)
 	 * @author Todos
 	 */
-	Interfaz();
+	Interfaz(int replacerType);
 	/**
 	 * Imprime el contenido del bloque dado su identificador
 	 * @param numBlock: identificador del bloque

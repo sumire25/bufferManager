@@ -11,19 +11,11 @@ int main()
 
     //Configuracion inicial
     std::cout << "----------- BUFFER MANAGER -----------" <<std::endl;
-    std::cout << "1. Indicar numero de bloques " <<std::endl;
-    int numBlocks;
-    std::cin >> numBlocks;
-    std::cout << "2. Indicar tamaño del bloque  " <<std::endl;
-    int tamBlock;
-    std::cin >> tamBlock;
-    std::cout << "3. Indicar numero de frames " <<std::endl;
-    int numFrames;
-    std::cin >> numFrames;
+    std::cout << "1. Usar LRU Replacer  " <<std::endl;
+    std::cout << "2. Usar Clock Replacer " <<std::endl;
+    cin>> opc;
 
-    //Interfaz interfaz(5, 10, 3);
-    Interfaz interfaz;
-
+    Interfaz interfaz(opc);
 
     do {
         std::cout << "----------- Operaciones -----------" <<std::endl;
