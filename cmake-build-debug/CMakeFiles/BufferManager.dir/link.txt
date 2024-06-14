@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/BufferManager.dir/main.cpp.o CMakeFiles/BufferManager.dir/Interfaz.cpp.o CMakeFiles/BufferManager.dir/Bloque.cpp.o CMakeFiles/BufferManager.dir/BufferManager.cpp.o CMakeFiles/BufferManager.dir/BufferPool.cpp.o CMakeFiles/BufferManager.dir/DiskManager.cpp.o -o BufferManager 

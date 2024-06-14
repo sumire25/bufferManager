@@ -21,8 +21,8 @@ private:
 	DiskManager* diskManRef; //Referencia al disk manager
 	//key: pageId, value: frameId
 	unordered_map<int,int> pageTable;
-	//key: frameId, value: dirtyBit y pinCount
-	tuple<bool, int> frameInfo[NUM_FRAMES];
+	//key: frameId, value: dirtyBit, pinCount y pinned
+	tuple<bool, int, bool> frameInfo[NUM_FRAMES];
 	Replacer* replacer;//reemplazador
 	BufferPool buffPool; // instancia del buffer pool
 	int numFrames; // numero de frames
@@ -35,7 +35,7 @@ private:
  * @param pageId: id de la pagina
  * @author Todos
  */
-	void flushPage(int pageId);
+	bool flushPage(int pageId);
 	/**
  * Verifica si la pagina esta en el buffer, incrementa el pincount
  * @param pageId: id de la pagina
@@ -105,6 +105,8 @@ public:
 	* @author Marko
 	*/
 	void printReplacer();
+	void pinningPage(int pageId);
+	void unpinningPage(int pageId);
 };
 
 

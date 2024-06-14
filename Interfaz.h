@@ -46,6 +46,9 @@ public:
 	 * @author Todos
 	 */
 	void mostrarContadores();
+	void pinPage(int numBloque);
+	void unpinPage(int numBloque);
+	void print();
 };
 
 

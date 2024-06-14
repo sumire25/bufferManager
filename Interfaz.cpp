@@ -14,8 +14,6 @@ void Interfaz::leerBloque(int numBlock) {
 	string* bloque = buffManager.getPage(numBlock);
 	if(bloque != nullptr) {
 		cout<<*bloque<<endl;
-		buffManager.printPageTable();
-		buffManager.printReplacer();
 	}
 }
 
@@ -24,18 +22,29 @@ void Interfaz::escribirBloque(int numBloque, string contenido) {
 	if(bloque != nullptr) {
 		*bloque = std::move(contenido);
 		buffManager.setDirtyFlag(numBloque);
-		buffManager.printPageTable();
-		buffManager.printReplacer();
 	}
 }
 
 void Interfaz::liberarBloque(int numBloque) {
 	buffManager.unpinPage(numBloque);
-	buffManager.printPageTable();
-	buffManager.printReplacer();
 }
+
+
 
 void Interfaz::mostrarContadores() {
 	cout << "Total Misscount: " << buffManager.getMissCount();
 	cout << ", Total Hitcount: " << buffManager.getHitcount() << endl;
+}
+
+void Interfaz::pinPage(int numBloque) {
+	buffManager.pinningPage(numBloque);
+}
+
+void Interfaz::unpinPage(int numBloque) {
+	buffManager.unpinningPage(numBloque);
+}
+
+void Interfaz::print() {
+	buffManager.printPageTable();
+	buffManager.printReplacer();
 }

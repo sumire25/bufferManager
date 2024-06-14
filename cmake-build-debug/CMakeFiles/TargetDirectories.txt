@@ -1,3 +1,3 @@
-D:/BD2/BufferManager/cmake-build-debug/CMakeFiles/BufferManager.dir
-D:/BD2/BufferManager/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/BD2/BufferManager/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/sumire/CLionProjects/bufferManager/cmake-build-debug/CMakeFiles/BufferManager.dir
+/home/sumire/CLionProjects/bufferManager/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/sumire/CLionProjects/bufferManager/cmake-build-debug/CMakeFiles/rebuild_cache.dir

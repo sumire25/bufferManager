@@ -12,7 +12,7 @@ using namespace std;
 //Clase abstracta para las politicas de reemplazo
 class Replacer {
 protected:
-	tuple<bool, int>* frameInfo;// referencia a la informacion de los frames en el bufferManager
+	tuple<bool, int, bool>* frameInfo;// referencia a la informacion de los frames en el bufferManager
 	int numFrames;// numero de frames en el bufferManager
 public:
 	/**
@@ -21,7 +21,7 @@ public:
 	* @param nf: numero de frames
 	* @author Marko
 	*/
-	Replacer(tuple<bool, int>* fi, int nf) : frameInfo(fi), numFrames(nf) {}
+	Replacer(tuple<bool, int, bool>* fi, int nf) : frameInfo(fi), numFrames(nf) {}
 	/**
 	* Ejecuta la busqueda del victimFrameId segun la politica de reemplazo
 	* @return id del frame a reemplazar, -1 si no hay ningun frame a reemplazar
@@ -51,7 +51,7 @@ class LruReplacer : public Replacer {
 private:
 	list<int> LRUqueue;//cola de frames segun su uso reciente
 public:
-	LruReplacer(tuple<bool, int>* fi, int nf) : Replacer(fi, nf) {
+	LruReplacer(tuple<bool, int, bool>* fi, int nf) : Replacer(fi, nf) {
 		for(int i=0; i<nf; i++) {
 			LRUqueue.push_back(i);
 		}
@@ -87,7 +87,7 @@ private:
 	bool* refBit;
 	int hand;
 public:
-	ClockReplacer(tuple<bool, int>* fi, int nf) : Replacer(fi, nf) {
+	ClockReplacer(tuple<bool, int, bool>* fi, int nf) : Replacer(fi, nf) {
 		refBit = new bool[nf];
 		for(int i=0; i<nf; i++) {
 			refBit[i] = false;
@@ -97,12 +97,12 @@ public:
 	int getVictim() override {
 		bool existUnpinned = false;
 		for(int i=0; i<numFrames; i++) {
-			if(get<1>(frameInfo[i]) == 0)
+			if(get<1>(frameInfo[i]) == 0 && get<2>(frameInfo[i]) == false)
 				existUnpinned = true;
 		}
 		if(existUnpinned) {//si algun frame en frameInfo esta unpinned
 			while(true) {
-				if(get<1>(frameInfo[hand]) == 0) {
+				if(get<1>(frameInfo[hand]) == 0 && get<2>(frameInfo[hand]) == false) {
 					if(refBit[hand] == false) break;
 					refBit[hand] = false;
 				}
