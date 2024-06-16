@@ -41,8 +41,7 @@ int main()
         
         case 2:{
             std::cin >> bloque;
-            std::cin >> contenido;
-            interfaz.escribirBloque(bloque,contenido);
+            interfaz.escribirBloque(bloque);
             cout << "Pinear pagina: si(1), no(2)\n";
             cin >> opc;
             if(opc == 1)

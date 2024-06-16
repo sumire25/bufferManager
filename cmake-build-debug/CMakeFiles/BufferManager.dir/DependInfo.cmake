@@ -8,12 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/sumire/CLionProjects/bufferManager/Bloque.cpp" "CMakeFiles/BufferManager.dir/Bloque.cpp.o" "gcc" "CMakeFiles/BufferManager.dir/Bloque.cpp.o.d"
-  "/home/sumire/CLionProjects/bufferManager/BufferManager.cpp" "CMakeFiles/BufferManager.dir/BufferManager.cpp.o" "gcc" "CMakeFiles/BufferManager.dir/BufferManager.cpp.o.d"
-  "/home/sumire/CLionProjects/bufferManager/BufferPool.cpp" "CMakeFiles/BufferManager.dir/BufferPool.cpp.o" "gcc" "CMakeFiles/BufferManager.dir/BufferPool.cpp.o.d"
-  "/home/sumire/CLionProjects/bufferManager/DiskManager.cpp" "CMakeFiles/BufferManager.dir/DiskManager.cpp.o" "gcc" "CMakeFiles/BufferManager.dir/DiskManager.cpp.o.d"
-  "/home/sumire/CLionProjects/bufferManager/Interfaz.cpp" "CMakeFiles/BufferManager.dir/Interfaz.cpp.o" "gcc" "CMakeFiles/BufferManager.dir/Interfaz.cpp.o.d"
-  "/home/sumire/CLionProjects/bufferManager/main.cpp" "CMakeFiles/BufferManager.dir/main.cpp.o" "gcc" "CMakeFiles/BufferManager.dir/main.cpp.o.d"
+  "D:/BD2/bufferManager/Bloque.cpp" "CMakeFiles/BufferManager.dir/Bloque.cpp.obj" "gcc" "CMakeFiles/BufferManager.dir/Bloque.cpp.obj.d"
+  "D:/BD2/bufferManager/BufferManager.cpp" "CMakeFiles/BufferManager.dir/BufferManager.cpp.obj" "gcc" "CMakeFiles/BufferManager.dir/BufferManager.cpp.obj.d"
+  "D:/BD2/bufferManager/BufferPool.cpp" "CMakeFiles/BufferManager.dir/BufferPool.cpp.obj" "gcc" "CMakeFiles/BufferManager.dir/BufferPool.cpp.obj.d"
+  "D:/BD2/bufferManager/DiskManager.cpp" "CMakeFiles/BufferManager.dir/DiskManager.cpp.obj" "gcc" "CMakeFiles/BufferManager.dir/DiskManager.cpp.obj.d"
+  "D:/BD2/bufferManager/Interfaz.cpp" "CMakeFiles/BufferManager.dir/Interfaz.cpp.obj" "gcc" "CMakeFiles/BufferManager.dir/Interfaz.cpp.obj.d"
+  "D:/BD2/bufferManager/main.cpp" "CMakeFiles/BufferManager.dir/main.cpp.obj" "gcc" "CMakeFiles/BufferManager.dir/main.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -11,25 +11,20 @@ Interfaz::Interfaz(int replacerType): buffManager(replacerType), diskMan(5, PAGE
 }
 
 void Interfaz::leerBloque(int numBlock) {
+	if(!buffManager.pinPage(numBlock, RequestType::READ)) return;
 	string* bloque = buffManager.getPage(numBlock);
-	if(bloque != nullptr) {
-		cout<<*bloque<<endl;
-	}
+	cout<<*bloque<<endl;
 }
 
-void Interfaz::escribirBloque(int numBloque, string contenido) {
+void Interfaz::escribirBloque(int numBloque) {
+	if(!buffManager.pinPage(numBloque, RequestType::WRITE)) return;
 	string* bloque = buffManager.getPage(numBloque);
-	if(bloque != nullptr) {
-		*bloque = std::move(contenido);
-		buffManager.setDirtyFlag(numBloque);
-	}
+	cout<<*bloque<<endl;
 }
 
 void Interfaz::liberarBloque(int numBloque) {
 	buffManager.unpinPage(numBloque);
 }
-
-
 
 void Interfaz::mostrarContadores() {
 	cout << "Total Misscount: " << buffManager.getMissCount();
@@ -45,6 +40,7 @@ void Interfaz::unpinPage(int numBloque) {
 }
 
 void Interfaz::print() {
+	buffManager.printRequestQueue();
 	buffManager.printPageTable();
 	buffManager.printReplacer();
 }

@@ -1,1 +1,3 @@
-/usr/bin/c++ -g CMakeFiles/BufferManager.dir/main.cpp.o CMakeFiles/BufferManager.dir/Interfaz.cpp.o CMakeFiles/BufferManager.dir/Bloque.cpp.o CMakeFiles/BufferManager.dir/BufferManager.cpp.o CMakeFiles/BufferManager.dir/BufferPool.cpp.o CMakeFiles/BufferManager.dir/DiskManager.cpp.o -o BufferManager 
+C:\Users\msumi\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E rm -f CMakeFiles\BufferManager.dir/objects.a
+C:\Users\msumi\AppData\Local\Programs\CLion\bin\mingw\bin\ar.exe qc CMakeFiles\BufferManager.dir/objects.a @CMakeFiles\BufferManager.dir\objects1.rsp
+C:\Users\msumi\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\BufferManager.dir/objects.a -Wl,--no-whole-archive -o BufferManager.exe -Wl,--out-implib,libBufferManager.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\BufferManager.dir\linkLibs.rsp

@@ -33,12 +33,13 @@ void BufferManager::setDiskManRef(DiskManager *diskManRef) {
 }
 
 string * BufferManager::getPage(int pageId) {
-	// pinear pagina
-	if(pinPage(pageId)) {
-		// retornar direccion del frame que sostiene a la pagina
-		return buffPool.getFrameDirection(pageTable[pageId]);
-	}
-	return nullptr;
+	return buffPool.getFrameDirection(pageTable[pageId]);
+}
+
+void BufferManager::writePage(int pageId) {
+	string* page = buffPool.getFrameDirection(pageTable[pageId]);
+	diskManRef->writeBlock(pageId, *page);
+	cerr<<"Escribiendo pagina: "<<pageId<<endl;
 }
 
 bool BufferManager::flushPage(int pageId) {
@@ -52,16 +53,14 @@ bool BufferManager::flushPage(int pageId) {
 		cout<<"Escribir el contenido de la pagina "<<pageId<<" en disco? si(1), no(2)"<<endl;
 		cin>>opc;
 		if(opc == 2) return false;
-		string* page = buffPool.getFrameDirection(frameId);
-		diskManRef->writeBlock(pageId, *page);
-		cerr<<"Escribiendo pagina: "<<pageId<<endl;
+		writePage(pageId);
 	}
 	pageTable.erase(pageId);// eliminar seguimiento de la pagina del pagetable
 	cerr<<"Flushing page: "<<pageId<<endl;
 	return true;
 }
 
-bool BufferManager::pinPage(int pageId) {
+bool BufferManager::pinPage(int pageId, RequestType requestType) {
 	int frameId;
 	if(pageTable.find(pageId) == pageTable.end()) {// Si la pagina no esta en el BufferPool
 		frameId = replacer->getVictim();//obtener el victimFrame
@@ -90,6 +89,10 @@ bool BufferManager::pinPage(int pageId) {
 	}
 	//pinnear la pagina
 	get<1>(frameInfo[pageTable[pageId]])++;
+	requestQueue[frameId].push(requestType);
+	if(requestQueue[frameId].size() == 1 && requestType==RequestType::WRITE) {
+		setDirtyFlag(pageId);
+	}
 	replacer->handlePinning(frameId);
 	return true;
 }
@@ -106,7 +109,20 @@ int BufferManager::getPageidfromFrame(int frameId) {
 }
 
 void BufferManager::unpinPage(int pageId) {
-	bool pinned = get<2>(frameInfo[pageTable[pageId]]);
+	int frameId = pageTable[pageId];
+	bool pinned = get<2>(frameInfo[frameId]);
+	//if the current request is RequestType::WRITE then write to disk
+	if(requestQueue[frameId].front() == RequestType::WRITE) {
+		if(get<0>(frameInfo[frameId])) {// la escribira en disco si dirtyflag es true
+			writePage(pageId);
+			//set dirty flag to false
+			get<0>(frameInfo[frameId]) = false;
+		}
+	}
+	requestQueue[frameId].pop(); //pop the request from the queue
+	if(!requestQueue[frameId].empty() && requestQueue[frameId].front() == RequestType::WRITE) {
+		setDirtyFlag(pageId);//set dirty flag if the next request is RequestType::WRITE
+	}
 	if(((--get<1>(frameInfo[pageTable[pageId]])) == 0) && !pinned)//si la pagina esta unpinned
 		replacer->handleUnpinning(pageTable[pageId]);//actualizar el estado del frame en el reemplazador
 }
@@ -143,7 +159,22 @@ void BufferManager::printPageTable() {
 void BufferManager::printReplacer() {
 	replacer->print();
 }
-
+void BufferManager::printRequestQueue() {
+	for(int i = 0; i < numFrames; i++) {
+		cout << "Frame " << i << ": ";
+		queue<RequestType> tempQueue = requestQueue[i]; // Copy the queue to a temporary queue
+		while(!tempQueue.empty()) {
+			RequestType requestType = tempQueue.front();
+			tempQueue.pop();
+			if(requestType == RequestType::READ) {
+				cout << "READ ";
+			} else if(requestType == RequestType::WRITE) {
+				cout << "WRITE ";
+			}
+		}
+		cout << endl;
+	}
+}
 void BufferManager::pinningPage(int pageId) {
 	get<2>(frameInfo[pageTable[pageId]]) = true;
 }

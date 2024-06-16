@@ -33,7 +33,7 @@ public:
 	* @param numBlock: identificador del bloque
 	* @author Todos
 	*/
-	void escribirBloque(int numBloque, string contenido);
+	void escribirBloque(int numBloque);
 
 	/**
 	 * Libera un bloque

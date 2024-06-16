@@ -13,6 +13,10 @@
 #include <queue>
 #include <list>
 
+enum class RequestType {
+	READ,
+	WRITE
+};
 /**
  * Gestiona el buffer, el cual es un conjunto de frames en memoria principal
  */
@@ -23,6 +27,8 @@ private:
 	unordered_map<int,int> pageTable;
 	//key: frameId, value: dirtyBit, pinCount y pinned
 	tuple<bool, int, bool> frameInfo[NUM_FRAMES];
+	//request queue for any page
+	queue<RequestType> requestQueue[NUM_FRAMES];
 	Replacer* replacer;//reemplazador
 	BufferPool buffPool; // instancia del buffer pool
 	int numFrames; // numero de frames
@@ -31,18 +37,17 @@ private:
 	int hitCount; // contador de hits
 
 	/**
+	* Escribe el contenido de la pagina en disco
+	* @param pageId: id de la pagina
+	* @author Marko
+	*/
+	void writePage(int pageId);
+	/**
  * Libera el frame que contiene a la pagina, escribe en disco si hay cambios
  * @param pageId: id de la pagina
  * @author Todos
  */
 	bool flushPage(int pageId);
-	/**
- * Verifica si la pagina esta en el buffer, incrementa el pincount
- * @param pageId: id de la pagina
- * @return true si se pudo pinear la pagina, false en caso contrario
- * @author Todos
- */
-	bool pinPage(int pageId);
 	/**
  * Obtiene el id de la pagina que esta en el frame
  * @param frameId: id del frame
@@ -71,6 +76,14 @@ public:
 	 * @author Todos
 	 */
 	string* getPage(int pageId);
+	/**
+	* Verifica si la pagina esta en el buffer, incrementa el pincount
+	* @param pageId: id de la pagina
+	* @param requestType: tipo de request(READ, WRITE)
+	* @return true si se pudo pinear la pagina, false en caso contrario
+	* @author Todos
+	*/
+	bool pinPage(int pageId, RequestType requestType);
 	/**
 	 * Decrementa el pincount
 	 * @param pageId: id de la pagina
@@ -105,6 +118,7 @@ public:
 	* @author Marko
 	*/
 	void printReplacer();
+	void printRequestQueue();
 	void pinningPage(int pageId);
 	void unpinningPage(int pageId);
 };
