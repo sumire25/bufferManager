@@ -111,11 +111,12 @@ int BufferManager::getPageidfromFrame(int frameId) {
 void BufferManager::unpinPage(int pageId) {
 	int frameId = pageTable[pageId];
 	bool pinned = get<2>(frameInfo[frameId]);
-	//if the current request is RequestType::WRITE then write to disk
-	if(requestQueue[frameId].front() == RequestType::WRITE) {
-		if(get<0>(frameInfo[frameId])) {// la escribira en disco si dirtyflag es true
+	if(get<0>(frameInfo[frameId])) {// la escribira en disco si dirtyflag es true??
+		int opc;
+		cout<<"Escribir el contenido de la pagina "<<pageId<<" en disco? si(1), no(2)"<<endl;
+		cin>>opc;
+		if(opc == 1) {
 			writePage(pageId);
-			//set dirty flag to false
 			get<0>(frameInfo[frameId]) = false;
 		}
 	}
@@ -140,7 +141,7 @@ int BufferManager::getHitcount() {
 }
 
 void BufferManager::printPageTable() {
-	cout << "\t----------------------------------------------" << endl;
+	cout << "\t-------------------------------------------------------" << endl;
 	cout << "\t| Page ID | Frame ID | dirty bit | pin count | pinned |" << endl;
 	for (const auto& entry : pageTable) {
 		int key = entry.first;
@@ -150,10 +151,10 @@ void BufferManager::printPageTable() {
 		int pinCount = get<1>(frameInfo[frameId]);
 		bool pinned = get<2>(frameInfo[frameId]);
 
-		cout << "\t----------------------------------------------" << endl;
-		cout << "\t|    " << key << "    |    " << frameId << "     |     " << dirtyBit << "     |     " << pinCount << "     |     " << pinned << "     |" << endl;
+		cout << "\t-------------------------------------------------------" << endl;
+		cout << "\t|    " << key << "    |    " << frameId << "     |     " << dirtyBit << "     |     " << pinCount << "     |   " << pinned << "    |" << endl;
 	}
-	cout << "\t----------------------------------------------\n" << endl;
+	cout << "\t-------------------------------------------------------\n" << endl;
 }
 
 void BufferManager::printReplacer() {

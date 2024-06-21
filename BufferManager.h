@@ -11,7 +11,6 @@
 #include <iostream>
 #include <unordered_map>
 #include <queue>
-#include <list>
 
 enum class RequestType {
 	READ,
